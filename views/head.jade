@@ -1,0 +1,114 @@
+doctype html
+html(lang="en")
+head
+  title Todo.txt++
+  
+  // jQuery
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js")
+
+  script.
+    // Really don't want to have to use Angular...
+    // https://github.com/cowboy/jquery-bbq/issues/52
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+
+  // Bootstrap
+  link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+  script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
+  
+  // Bootstrap Alerts
+  script(src="/js/jquery.bsAlerts.min.js")
+
+  // jQuery BBQ for simple SPA
+  script(src="/js/jquery.ba-bbq.min.js")
+
+  // Lumen Bootstrap Theme
+  link(rel='stylesheet', href='/css/lumen.css')
+
+  // Custom JS & CSS
+  link(rel='stylesheet', href='/css/todotxtpp.css')
+  script(src="/js/todotxtpp.js")
+  script(src="/js/merge.js")
+
+  // Dropbox JS for file chooser.
+  script#dropboxjs(type="text/javascript", src="https://www.dropbox.com/static/api/2/dropins.js", data-app-key="ds8bn744aonco6i")
+
+  // FontAwesome
+  link(href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css",rel="stylesheet")
+
+  // JQuery UI (for sortable)
+  link(href="/css/jquery-ui.min.css",rel="stylesheet")
+  script(src="/js/jquery-ui.min.js")
+
+  // Ladda
+  script(src="/js/ladda-0.9.4/spin.min.js")
+  script(src="/js/ladda-0.9.4/ladda.min.js")
+  script(src="/js/ladda-0.9.4/ladda.jquery.min.js")
+  link(href="/css/ladda-0.9.4/ladda.min.css", rel="stylesheet")
+
+  meta(charset="utf-8")
+  meta(http-equiv="X-UA-Compatible", content="IE=edge")
+  meta(name="viewport",content="width=device-width, initial-scale=1")
+
+body
+  script(src="/js/ace.js")
+  script(src="/js/mode-todotxt.js")
+  script(src="/js/ext-language_tools.js")
+
+  nav.navbar.navbar-default(role="navigation")
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle(type="button",data-toggle="collapse",data-target="#bs-example-navbar-collapse-1")
+          span.sr-only Toggle nav
+          span.icon-bar
+        a.navbar-brand(href="/home") 
+          img(src="/images/todotxtpp-sm.png")
+          | Todo.txt++
+
+
+        ul.nav.navbar-nav
+          li
+            a#twitter-logo(href="http://twitter.com/todotxtpp", target="_blank", title="@todotxtpp")
+
+      .collapse.navbar-collapse#bs-example-navbar-collapse-1        
+        ul.nav.navbar-nav.navbar-right
+          if username
+            li.logged-in
+              a.dropdown-toggle(href="#", data-toggle="dropdown")
+                = username
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href="#" onclick="Dropbox.choose({success: Todotxt.onDBSuccess, linkType:'direct', extensions:Todotxt.dbExtensions});") 
+                    i.fa.fa-folder-open-o
+                    |  Choose File
+                li
+                  a(href="/logout") 
+                    i.fa.fa-sign-out
+                    |  Logout
+          else
+            li.logged-out
+              a(href="/login") Login
+
+        if path
+          form.navbar-form.navbar-right(role="search")
+            .form-group#search-form
+              input#search-input(type="text",placeholder="Search")
+              #clear-search()
+                i.fa.fa-times
+              #search-btn-container
+                #search-btn(type="submit")
+                  i.fa.fa-search
+
+            
+  #persAlerts
+  div(data-alerts="alerts", data-ids="flash", data-fade="5000")
+  

@@ -1,0 +1,315 @@
+html{
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin: 0 0 45px;
+  overflow: hidden;
+}
+
+#footer {
+  padding-top: 5px;
+  border-top: 1px solid #CCC;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  background-color: #FFF;
+}
+
+#sign-up {
+  margin-top: 3.5em;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+#choose-file {
+  font-size: 24px;
+  text-align: left;
+  margin-top: 3.2em;  
+  width: 100%;
+}
+
+button i {
+  float: left;
+  display: block;
+  padding-right: 12px;
+}
+
+.feature-icon {
+  color: #75caeb;
+  float: left;
+  padding-top: 12px;
+  width: 55px;
+  text-align: center;
+}
+
+.feature-accent {
+  color: #75caeb;
+  font-style: italic;
+}
+
+#save-btn{
+  font-size: 18px;
+  width: 100%;
+  margin-top: .5em;
+}
+
+.feature, .feature-text, #btn-save {
+  display: block;
+  overflow: hidden;
+}
+
+.feature {
+  margin-bottom: 2em;
+}
+
+.feature-text h3 {
+  margin-top: 0;
+}
+
+#ace-editor {
+  height: 300px;
+  min-height: 120px;
+  border: 1px solid #CCC;
+}
+
+.navbar-brand img {
+  float: left;  
+  width: 32px;
+  height: 32px;
+  margin: -5px 8px 0 -5px;
+}
+
+.no-top {
+  margin-top: 0;
+}
+
+#search-input{
+  border: none;
+  margin-left: 6px;
+  line-height: 16px;
+}
+
+#search-input:focus {
+  outline: 0;
+}
+
+#search-form {
+  margin-top: 3px;
+  border: 1px solid #AAA;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  background-color: #FFF;
+  line-height: 28px;
+}
+
+#search-btn-container {
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  background-color: #DDD;
+  display: inline-block;
+  float: right;
+  cursor: pointer;
+  cursor: hand;
+}
+
+#filter-select {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+#search-btn{
+  border: none;
+  border-left: 1px solid #AAA;  
+  background-color: #DDD;
+  height: 28px;
+  margin-right: 6px;
+  display: inline-block;
+  padding: 0;
+  float: right;
+}
+
+#search-btn i {
+  padding-right: 5px;
+  padding-left: 7px;
+}
+
+#sidebar {
+  margin-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  #sidebar {
+    border: 1px solid #AAA;
+    border-bottom: none;
+  }  
+}
+
+#sidebar ul
+{
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+
+#sidebar a {
+  display:block;
+  background-color: #E3E3E3;
+  border-bottom: 1px solid #AAA;
+  padding: 5px;
+  color: #555;
+}
+
+#sidebar a:hover, #sidebar a.active{
+  text-decoration: none;
+  background-color: #EFF5F9;
+}
+
+.col-no-padding {
+   padding-left: 5px !important;
+   padding-right: 5px !important;
+   margin: 0 !important;
+}
+
+#clear-search{
+  display: inline-block;
+  margin: 0 5px 0 3px;
+  cursor: pointer;
+  cursor: hand;
+  color: #AAA;
+}
+
+.list-icon {
+  display: inline-block;
+  min-width: 28px;
+  text-align: center;
+  font-size: 20px;
+  height: 15px;  
+}
+
+.list-icon-plus {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 15px;
+  vertical-align: bottom;
+  margin-bottom: 3px;
+}
+
+.list-icon-at {
+  font-size: 18px;
+  line-height: 15px;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+#sidebar li:hover .delete-list-btn {
+  visibility: visible;
+}
+
+.delete-list-btn {
+  float: right;
+  padding-top: 2px;
+  cursor: pointer;
+  cursor: hand;
+  color: #DAB;
+  font-size: 16px;
+  display: none;
+  visibility: hidden;
+}
+
+.delete-list-btn:hover {
+  color: #F68;
+}
+
+#create-filter{
+  margin-top: 2em;
+}
+
+#sidebar-col {
+  position: relative;
+  height: 100%;
+}
+
+#archive-dones {
+  position: absolute;
+  bottom: 0;
+}
+
+#createModal h3{
+  margin-top: 0;
+  
+}
+
+.create-type-icon{
+  float: right;
+  color: #DDF;
+}
+
+.create-type-icon, .create-type-text {
+  display: block;
+  overflow: hidden;
+}
+
+.create-type-text{
+  margin-top: 5px;
+}
+
+.create-filter-option {
+  min-height: 180px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.create-filter-option:hover, .active-filter-option {
+  background-color: #FFF;
+}
+
+.active-filter-option .create-type-icon {
+  color: #43C;
+}
+
+
+#create-filter-input {
+  width: 100%;
+  margin-bottom: 18px;
+  line-height: 36px;
+  font-size: 26px;
+}
+
+#footer .footer-col{
+  border-right: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+}
+
+@media (max-width: 767px) { 
+  #twitter-logo {
+    margin-top: 7px;
+  }
+}
+
+@media (min-width: 768px) { 
+  #twitter-logo {
+    margin-top: 15px;
+  }
+}
+
+
+#twitter-logo {
+  height: 21px !important;
+  width: 26px;
+  background: url('../images/twitter-sm.png') no-repeat center top;
+  margin-left: 10px;
+  overflow: hidden;
+  padding: 0;
+
+}
+
+#twitter-logo:hover {
+  background-position: 0 -21px;
+}

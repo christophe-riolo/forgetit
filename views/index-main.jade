@@ -1,0 +1,103 @@
+
+.container-fluid
+  .row-fluid
+    .col-sm-4.col-sm-offset-8
+      #search-bar
+
+
+.container-fluid
+  .row-fluid
+    #sidebar-col.col-sm-2.col-no-padding
+      #sidebar
+        ul#filters.hidden-xs
+          each fil in filters
+            li(id = fil)
+              a(href="##{fil === '#All' ? '' : fil}",data-name="#{fil}")
+                if (fil.substring(0,1) === '+')
+                  .list-icon.list-icon-plus +
+                  =fil.substring(1)
+                if (fil.substring(0,1) === '@')
+                  .list-icon.list-icon-at @
+                  =fil.substring(1)
+                if (fil.substring(0,1) === '(')
+                  i.fa.fa-star-o.list-icon
+                  =fil
+                if (fil === '#All')
+                  i.fa.fa-home.list-icon
+                  | All
+                  
+                
+                if (fil !== '#All')
+                  i.fa.fa-times.delete-list-btn
+
+        select#filter-select.visible-xs         
+          option(value="" selected="1")
+            | Select a filter...
+          each fil in filters
+            option(value = fil)
+              | #{fil}
+          
+      button.btn.center-block.hidden-xs#create-filter(data-toggle="modal" data-target="#createModal") Create Filter
+
+      button.btn.center-block#archive-dones Archive to done.txt
+
+    .col-sm-10.col-no-padding
+      #ace-editor
+.container-fluid#save-row
+  .row-fluid
+    .col-sm-2.col-sm-offset-10
+      button.ladda-button#save-btn(data-style="expand-left" onclick="saveFile();" data-color="blue")
+        span.ladda-label   
+          | Save
+
+script.
+  Todotxt.activateEditor();
+
+#createModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='createModalLabel', aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4#createModalLabel.modal-title Create New Filter
+      .modal-body
+        .container-fluid
+          .row-fluid
+            .col-sm-12
+              input#create-filter-input(type="text",data-prefix="+",placeholder="+ProjectA")
+
+          .row-fluid
+            .col-sm-4.well.create-filter-option.active-filter-option(data-prefix="+",data-example="+ProjectA")
+              h3.create-type-icon +
+              h3 Project
+              | Arrange your tasks by the project to which you've assigned them. Great for viewing one project at a time.
+              
+            .col-sm-4.well.create-filter-option(data-prefix="@",data-example="@Phone")
+              h3.create-type-icon @
+              h3 Context
+              | View your tasks by context to see what you can work on right 
+              i now
+              | .
+              
+            .col-sm-4.well.create-filter-option(data-prefix="(",data-example="(A)")
+              h3.create-type-icon (A)
+              h3 Priority
+              | Keep an eye on your most important tasks. Filter based on the priority you assigned to a task.
+
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+        button.btn.btn-primary#create-filter-ok(type='button') Create
+
+
+#deleteFilter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='deleteLabel', aria-hidden='true')
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4#deleteLabel.modal-title Delete Filter
+      .modal-body
+        | Are you sure you want to delete the filter "
+        code#delete-list-name
+        | "?
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+        button.btn.btn-primary#delete-filter-btn(type='button') Yes, Delete it

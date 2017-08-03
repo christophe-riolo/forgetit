@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+  <title>Todo.txt++</title>
+  <!-- jQuery-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>// Really don't want to have to use Angular...
+// https://github.com/cowboy/jquery-bbq/issues/52
+jQuery.browser = {};
+(function () {
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+})();
+  </script>
+
+  <!-- Bootstrap-->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <!-- Bootstrap Alerts-->
+  <script src="/js/jquery.bsAlerts.min.js"></script>
+  <!-- jQuery BBQ for simple SPA-->
+  <script src="/js/jquery.ba-bbq.min.js"></script>
+  <!-- Lumen Bootstrap Theme-->
+  <link rel="stylesheet" href="/css/lumen.css">
+  <!-- Custom JS & CSS-->
+  <link rel="stylesheet" href="/css/todotxtpp.css">
+  <script src="/js/todotxtpp.js"></script>
+  <script src="/js/merge.js"></script>
+  <!-- Dropbox JS for file chooser.-->
+  <script id="dropboxjs" type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" data-app-key="ds8bn744aonco6i"></script>
+  <!-- FontAwesome-->
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <!-- JQuery UI (for sortable)-->
+  <link href="/css/jquery-ui.min.css" rel="stylesheet">
+  <script src="/js/jquery-ui.min.js"></script>
+  <!-- Ladda-->
+  <script src="/js/ladda-0.9.4/spin.min.js"></script>
+  <script src="/js/ladda-0.9.4/ladda.min.js"></script>
+  <script src="/js/ladda-0.9.4/ladda.jquery.min.js"></script>
+  <link href="/css/ladda-0.9.4/ladda.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <script src="/js/ace.js"></script>
+  <script src="/js/mode-todotxt.js"></script>
+  <script src="/js/ext-language_tools.js"></script>
+  <nav role="navigation" class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle nav</span><span class="icon-bar"></span>
+        </button><a href="/home" class="navbar-brand"><img src="/images/todotxtpp-sm.png">Todo.txt++</a>
+        <ul class="nav navbar-nav">
+          <li><a id="twitter-logo" href="http://twitter.com/todotxtpp" target="_blank" title="@todotxtpp"></a>
+          </li>
+        </ul>
+      </div>
+      <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">{% if  username %}
+          <li class="logged-in"><a href="#" data-toggle="dropdown" class="dropdown-toggle">{{username|escape}}<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="Dropbox.choose({success: Todotxt.onDBSuccess, linkType:'direct', extensions:Todotxt.dbExtensions});"><i class="fa fa-folder-open-o"></i> Choose File</a>
+              </li>
+              <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+              </li>
+            </ul>
+          </li>{% else %}
+
+          <li class="logged-out"><a href="/login">Login</a>
+          </li>{% endif %}
+        </ul>{% if  path %}
+        <form role="search" class="navbar-form navbar-right">
+          <div id="search-form" class="form-group">
+            <input id="search-input" type="text" placeholder="Search">
+            <div id="clear-search"><i class="fa fa-times"></i>
+            </div>
+            <div id="search-btn-container">
+              <div id="search-btn" type="submit"><i class="fa fa-search"></i>
+              </div>
+            </div>
+          </div>
+        </form>{% endif %}
+      </div>
+    </div>
+  </nav>
+  <div id="persAlerts"></div>
+  <div data-alerts="alerts" data-ids="flash" data-fade="5000"></div>
+</body>

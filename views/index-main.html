@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-sm-4 col-sm-offset-8">
+      <div id="search-bar"></div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div id="sidebar-col" class="col-sm-2 col-no-padding">
+      <div id="sidebar">
+        <ul id="filters" class="hidden-xs">{% for fil in __pypugjs_iter(filters,1) %}
+          <li{{__pypugjs_attrs(attrs=[('id',(fil))])}}><a{{__pypugjs_attrs(attrs=[('href',("#"+"{}".format(fil === '#All' ? '' : fil)+"")), ('data-name',(""+"{}".format(fil)+""))])}}>{% if  (fil.substring(0,1) === '+') %}
+              <div class="list-icon list-icon-plus">+</div>{{fil.substring(1)|escape}}{% endif %}{% if  (fil.substring(0,1) === '@') %}
+              <div class="list-icon list-icon-at">@</div>{{fil.substring(1)|escape}}{% endif %}{% if  (fil.substring(0,1) === '(') %}<i class="fa fa-star-o list-icon"></i>{{fil|escape}}{% endif %}{% if  (fil === '#All') %}<i class="fa fa-home list-icon"></i>All{% endif %}
+{% if  (fil !== '#All') %}<i class="fa fa-times delete-list-btn"></i>{% endif %}</a>
+          </li>{% endfor %}
+        </ul>
+        <select id="filter-select" class="visible-xs">
+          <option value="" selected="1">Select a filter...
+          </option>
+{% for fil in __pypugjs_iter(filters,1) %}
+          <option{{__pypugjs_attrs(attrs=[('value',(fil))])}}>{{fil|escape}}
+          </option>{% endfor %}
+        </select>
+      </div>
+      <button id="create-filter" data-toggle="modal" data-target="#createModal" class="btn center-block hidden-xs">Create Filter</button>
+      <button id="archive-dones" class="btn center-block">Archive to done.txt</button>
+    </div>
+    <div class="col-sm-10 col-no-padding">
+      <div id="ace-editor"></div>
+    </div>
+  </div>
+</div>
+<div id="save-row" class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-sm-2 col-sm-offset-10">
+      <button id="save-btn" data-style="expand-left"{{__pypugjs_attrs(attrs=[('onclick',("saveFile();" data-color="blue"))])}} class="ladda-button"><span class="ladda-label">Save</span>
+      </button>
+    </div>
+  </div>
+</div>
+<script>Todotxt.activateEditor();
+
+</script>
+<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+        <h4 id="createModalLabel" class="modal-title">Create New Filter</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row-fluid">
+            <div class="col-sm-12">
+              <input id="create-filter-input" type="text" data-prefix="+" placeholder="+ProjectA"/>
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div data-prefix="+" data-example="+ProjectA" class="col-sm-4 well create-filter-option active-filter-option">
+              <h3 class="create-type-icon">+</h3>
+              <h3>Project</h3>Arrange your tasks by the project to which you've assigned them. Great for viewing one project at a time.
+            </div>
+            <div data-prefix="@" data-example="@Phone" class="col-sm-4 well create-filter-option">
+              <h3 class="create-type-icon">@</h3>
+              <h3>Context</h3>View your tasks by context to see what you can work on right <i>now</i>.
+            </div>
+            <div class="col-sm-4 well create-filter-option"></div>
+            <data-prefix>{{"(",data-example="(A)")|escape}}
+              <h3 class="create-type-icon">(A)</h3>
+              <h3>Priority</h3>Keep an eye on your most important tasks. Filter based on the priority you assigned to a task.</data-prefix>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+        <button id="create-filter-ok" type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="deleteFilter" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+        <h4 id="deleteLabel" class="modal-title">Delete Filter</h4>
+      </div>
+      <div class="modal-body">Are you sure you want to delete the filter "<code id="delete-list-name"></code>"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+        <button id="delete-filter-btn" type="button" class="btn btn-primary">Yes, Delete it</button>
+      </div>
+    </div>
+  </div>
+</div>
