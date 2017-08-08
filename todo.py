@@ -22,41 +22,43 @@ r_context = re.compile(r"@\w+")
 r_project = re.compile(r"\+\w+")
 
 
-def parse_todo(todo):
-    """Parses a stream that follows todo.txt syntax
-    and makes it into a useful json.
+def parse_todo_entry(entry, line):
+    """Parses a single todo entry to extract a dictionnary
+    of the data contained.
     """
-    # Making a match generator to avoid performing
-    # the regex search several times.
-    matches = (
-        (i, r_todo.match(l))
-        for i, l in enumerate(todo.readlines())
-        )
+    # Matching the whole entry
+    m = r_todo.match(entry)
 
     # The dates are trickier because the first one found
     # is either the end date or the start date, depending
     # if there one or two dates.
-    todo_list = [
-        {"line": i,
+    return {
+         "line": line,
          "text": m[0].strip(),
          "completed": bool(m[1]),
          "priority": m[2],
-         "end_date":
+         "end_date": (
              r_date.match(m[3])[0]
              if m[3] and len(r_date.findall(m[3])) >= 2
-             else None,
-         "start_date":
+             else None),
+         "start_date": (
              r_date.findall(m[3])[1]
              if m[3] and len(r_date.findall(m[3])) >= 2
              else r_date.findall(m[3])[0]
              if m[3] and len(r_date.findall(m[3])) == 1
-             else None,
+             else None),
          "contexts": r_context.findall(m[4]),
          "projects": r_project.findall(m[4])
          }
-        for i, m in matches
-        ]
-    return json.dumps(todo_list)
+
+
+def parse_todo(todo):
+    """Parses a stream that follows todo.txt syntax
+    and makes it into list of dictionnaries.
+    """
+    return [parse_todo_entry(entry, line)
+            for line, entry in enumerate(todo.readlines())
+            ]
 
 
 def open_todo(user, credentials):
@@ -67,4 +69,4 @@ def open_todo(user, credentials):
 
 if __name__ == "__main__":
     with open(os.path.expanduser("~/todo.txt")) as todo:
-        print(parse_todo(todo))
+        print(repr(json.dumps(parse_todo(todo))))
