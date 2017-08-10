@@ -34,7 +34,7 @@ def parse_todo_entry(entry, line):
     # if there one or two dates.
     return {
          "line": line,
-         "text": m[0].strip(),
+         "text": m[0],
          "completed": bool(m[1]),
          "priority": m[2],
          "end_date": (
@@ -47,6 +47,7 @@ def parse_todo_entry(entry, line):
              else r_date.findall(m[3])[0]
              if m[3] and len(r_date.findall(m[3])) == 1
              else None),
+         "description": m[4],
          "contexts": r_context.findall(m[4]),
          "projects": r_project.findall(m[4])
          }
