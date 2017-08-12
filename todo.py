@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Opens a todo.txt file and sends it as JSON.
+"""Module to open a todo file in todo.txt format and parsing it
+as a JSON.
 
-When the module is used as standalone, opens REST webserver for communication.
+When the module is used as standalone, opens webserver and REST API.
 """
 
 import os.path
 import json
 import re
+from flask import Flask
 
 
 r_todo = re.compile(
@@ -68,6 +70,10 @@ def open_todo(user, credentials):
     raise NotImplemented
 
 
-if __name__ == "__main__":
+app = Flask(__name__)
+
+
+@app.route('/')
+def get_todo():
     with open(os.path.expanduser("~/todo.txt")) as todo:
-        print(repr(json.dumps(parse_todo(todo))))
+        return json.dumps(parse_todo(todo))
