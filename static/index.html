@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+        <script src="controllers/todo.js"></script>
+    </head>
+    <body>
+        Todo list<br/>
+        <div ng-app="todo" ng-controller="list">
+            <ul>
+                <li ng-repeat="item in todo_list | sort_by:type">{{ item.text }}</li>
+            </ul>
+
+            <input ng-model="type" /><button ng-click="todo_list.sort(sort_by('priority'))">Sort</button>
+        </div>
+    </body>
+</html>
+
+

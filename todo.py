@@ -8,7 +8,7 @@ When the module is used as standalone, opens webserver and REST API.
 import os.path
 import json
 import re
-from flask import Flask
+from flask import Flask, send_from_directory
 
 
 r_todo = re.compile(
@@ -74,6 +74,20 @@ app = Flask(__name__)
 
 
 @app.route('/')
+def get_index():
+    return app.send_static_file('index.html')
+
+
+@app.route('/controllers/<path:path>')
+def get_controller(path):
+    return send_from_directory('controllers', path)
+
+
+@app.route('/todo')
 def get_todo():
     with open(os.path.expanduser("~/todo.txt")) as todo:
         return json.dumps(parse_todo(todo))
+
+
+if __name__ == "__main__":
+    app.run()
