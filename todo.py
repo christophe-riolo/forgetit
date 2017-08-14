@@ -20,8 +20,8 @@ r_todo = re.compile(
     (.*)$ # Description
     """, re.VERBOSE)
 r_date = re.compile(r"\d{4}-\d{2}-\d{2}")
-r_context = re.compile(r"@\w+")
-r_project = re.compile(r"\+\w+")
+r_context = re.compile(r"@[^\s]+")
+r_project = re.compile(r"\+[^\s]+")
 
 
 def parse_todo_entry(entry, line):
