@@ -8,10 +8,10 @@
         Todo list<br/>
         <div ng-app="todo" ng-controller="list">
             <ul>
-                <li ng-repeat="item in todo_list | sort_by:type">{{ item.text }}</li>
+                <li ng-repeat="item in todo_list | sort_by:type:types">{{ item.text }}</li>
             </ul>
 
-            Sort by: <input ng-model="type"/>
+            Sort by: <select ng-model="type" ng-options="type for type in types"></select>
         </div>
     </body>
 </html>

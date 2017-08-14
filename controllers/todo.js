@@ -29,6 +29,7 @@ app.controller("list",
         var r_context = /@\w+/g;
         var r_project = /\+\w+/g;
 
+        $scope.types = ["priority", "start_date", "end_date", "description", "completed", "contexts", "projects", "text", "line"];
         $http.get("http://127.0.0.1:5000/todo")
             .then(function(res) {
                 $scope.todo_list = res.data;
@@ -36,10 +37,9 @@ app.controller("list",
     }
 );
 
-var types = ["priority", "start_date", "end_date", "description", "completed", "contexts", "projects", "text", "line"];
 
 app.filter('sort_by', function() {
-    return function(input, type) {
+    return function(input, type, types) {
         res = input.slice()
 
         if (types.indexOf(type) !== -1) {
